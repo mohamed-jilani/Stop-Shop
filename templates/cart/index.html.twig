@@ -1,0 +1,51 @@
+{% extends 'index.html.twig' %} 
+{% block title %}Votre panier{% endblock %} 
+{% block body %} 
+<p><h1>Votre panier</h1></p>
+<hr>
+<div class="container">
+{% if items | length %} 
+<table class="table">
+<thead>
+    <tr>
+        <th><p><h4>Id</h4></p></th>
+        <th><p><h4>Image</h4></p></th>
+        <th><p><h4>Quantité</h4></p></th>
+        <th><p><h4>Prix</h4></p></th>
+    </tr>
+</thead>
+<tbody>
+ {% for item in items %} 
+    <tr>
+        <td><p><h4>{{ item.id }}</h4></p></td>
+        <td>
+            <img src="/images/{{ item.product.image }}" class="img-fluid" alt="">
+            <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="/images/{{ item.product.image }}" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_add', {'id': item.product.id}) }}" class="details-link"><i class="bi bi-plus-circle"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('cart_remove', {'id': item.product.id}) }}" class="details-link"><i class="bi bi-trash3"></i></a>
+            </div>
+        </td>
+        <td><p><h4>{{ item.quantity }}</h4></p></td>
+        <td><p><h4>{{ item.price }}</h4></p></td>
+    </tr>
+ {% endfor %} 
+</tbody>
+
+<tfoot>
+<tr>
+<td colspan="3" class="text-right"><p><h2>Total:</h2></p></td>
+<td><p><h4>{{ total }}</h4></p></td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+{% else %} 
+<p>Panier vide !</p>
+{% endif %} 
+</div>
+<hr>
+<p><a href="/" >Home</a></p>
+{% endblock %} 
